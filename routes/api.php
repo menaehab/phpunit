@@ -27,6 +27,6 @@ Route::post('/login', function (Request $request) {
 });
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::apiResource('categories', ApiCategoryController::class);
 });
