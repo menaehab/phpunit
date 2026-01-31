@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Category;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -72,5 +72,21 @@ class CategoryRetrievalTest extends TestCase
                 fn($categories) =>
                 $categories->count() === 5
             );
+    }
+
+    #[Test]
+    public function check_if_categories_show_page_contains_the_right_content(): void
+    {
+        // Arrange
+        $category = Category::factory()->create();
+
+        // Act
+        $response = $this->get(route('categories.show', $category->id));
+
+        // Assert
+        $response->assertStatus(200);
+        $response->assertViewIs('categories.show');
+        $response->assertSee($category->name);
+        $response->assertSee($category->description);
     }
 }
